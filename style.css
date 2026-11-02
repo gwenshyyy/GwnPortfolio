@@ -1,0 +1,815 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- Nav ---------- */
+.menubar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+  backdrop-filter: blur(15px); /* Frosted blur effect */
+}
+
+.logo {
+  color: #000000;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.logo img {
+  display: block;
+  height: 32px;      /* change this to make the logo bigger or smaller */
+  width: auto;
+}
+
+
+.menu-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.menu-links a {
+  color: black;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding-bottom: 4px;
+}
+
+.menu-links a:hover {
+  color: #6159c9;
+}
+
+.menu-links a.active {
+  color: #2b1d6e;
+  border-bottom: 2px solid #2b1d6e;
+}
+
+/* ---------- Home hero ---------- */
+:root {
+  --hero-purple: #6159c9;
+  --hero-lavender: #a7a2e8;
+}
+
+.hero {
+  position: relative;
+  min-height: 95vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  /* keeps content centered at 1100px wide while the grid fills the screen */
+  padding: 7rem max(2rem, calc((100% - 1100px) / 2)) 3rem;
+  background: #fff;
+}
+
+/* faint grid that fades to nothing at the bottom */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(#000 40%, transparent);
+  mask-image: linear-gradient(#000 40%, transparent);
+}
+
+.hero-text,
+.hero-photo {
+  position: relative;       /* sits above the grid */
+  z-index: 1;
+}
+
+.hello {
+  font-size: 2rem;
+  color: var(--hero-purple);
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Sliding roles ---------- */
+.roles {
+  height: 1.5em;            /* shows one role at a time */
+  overflow: hidden;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--hero-purple);
+  margin-bottom: 2rem;
+}
+
+.roles ul {
+  list-style: none;
+  animation: slide-roles 10s ease-in-out infinite;   /* 10s = full loop */
+}
+
+.roles li {
+  height: 1.5em;
+  line-height: 1.5;
+}
+
+/* each role holds, then slides up one step */
+@keyframes slide-roles {
+  0%, 20%  { transform: translateY(0); }
+  25%, 45% { transform: translateY(-20%); }
+  50%, 70% { transform: translateY(-40%); }
+  75%, 95% { transform: translateY(-60%); }
+  100%     { transform: translateY(-80%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roles ul { animation: none; }
+}
+
+/* ---------- Buttons ---------- */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.8rem 1.8rem;
+  background: var(--hero-purple);
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid var(--hero-purple);
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--hero-purple);
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+/* ---------- certificates-section ---------- */
+.certificates-section{
+  background: #f9f9f9;
+}
+
+/* 1. Grid Container */
+.certificates {
+  display: grid;
+  /* Automatically wraps cards into clean columns based on available space */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem; /* Spacing between the rows and columns */
+  padding: 1.5rem 0;
+  width: 100%;
+}
+
+/* 2. Individual Certificate Cards */
+.certificates .card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none; /* Removes underline from links */
+  color: inherit; /* Inherits your page text color */
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect to make it feel interactive */
+.certificates .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* 3. Certificate Images Alignment */
+.certificates .art {
+  width: 100%;
+  height: 200px; /* Fixed height forces absolute uniform alignment */
+  object-fit: cover; /* Crops the images cleanly without distorting their aspect ratio */
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* 4. Text Info Area Inside Cards */
+.card-info {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-info span {
+  font-size: 0.85rem;
+  color: #64748b; /* Subtle grey for the "Certificate" subtext */
+}
+
+
+/* ---------- Photo + squares ---------- */
+.hero-photo {
+  width: 100%;
+  max-width: 480px;
+  justify-self: center;
+}
+
+.hero-photo img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  /* bottom of the photo fades into the page. Lower 82% to fade sooner */
+  -webkit-mask-image: linear-gradient(#000 82%, transparent);
+  mask-image: linear-gradient(#000 82%, transparent);
+}
+
+.sq {
+  position: absolute;
+  aspect-ratio: 1;
+}
+
+.s1 { top: 8%;     right: -2%; width: 24%; background: var(--hero-purple); }
+.s2 { top: 3%;     left: 10%;  width: 6%;  background: var(--hero-purple); }
+.s3 { top: 10%;    left: 21%;  width: 4%;  background: #000; }
+.s4 { top: 17%;    left: 0;    width: 7%;  background: var(--hero-lavender); }
+.s5 { bottom: 14%; left: 8%;   width: 7%;  background: var(--hero-lavender); }
+.s6 { bottom: -3%; left: 14%;  width: 14%; background: var(--hero-purple); }
+.s7 { bottom: 12%; right: -5%; width: 12%; background: #000; }
+
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 6rem;
+  }
+  .hero-photo { max-width: 340px; }
+}
+
+/* ---------- Inner pages ---------- */
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;   /* top padding clears the fixed nav */
+}
+
+.page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.page h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Gallery ---------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter {
+  padding: 0.4rem 1.1rem;
+  border: 1px solid #1a1a1a;
+  background: white;
+  color: #1a1a1a;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.filter.active,
+.filter:hover {
+  background: #1a1a1a;
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  display: block;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  font: inherit;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 0.8rem 1rem;
+}
+
+.card-info h3 {
+  font-size: 1rem;
+}
+
+.card-info span {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ---------- Popup ---------- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.75);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-box {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-box .art {
+  border-radius: 8px 8px 0 0;
+}
+
+.modal-text {
+  padding: 1.5rem;
+}
+
+.modal-text span {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.modal-text h2 {
+  margin: 0.2rem 0 0.8rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  z-index: 1;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 2rem;
+  text-align: center;
+  background: #1a1a1a;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 700px) {
+  .menubar { padding: 16px 1.5rem; }
+  .menu-links { gap: 1rem; }
+  .hero h1 { font-size: 2.2rem; }
+}
+
+/* =====================================================
+   About page
+   ===================================================== */
+:root {
+  --purple-dark: #2b1d6e;
+  --purple: #7c4dff;
+  --purple-soft: #b9a5ff;
+  --pink: #e8508f;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+body.about-page {
+  background: linear-gradient(180deg, #d8ccff 0%, #eadcff 45%, #fcdceb 100%);
+}
+
+/* halftone dots fading in from the left edge */
+body.about-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(124, 77, 255, 0.35) 1.2px, transparent 1.6px);
+  background-size: 9px 9px;
+  -webkit-mask-image: linear-gradient(90deg, #000, transparent 25%);
+  mask-image: linear-gradient(90deg, #000, transparent 25%);
+}
+
+.about-banner {
+  height: 320px;               /* change this to make the banner taller or shorter */
+  background: linear-gradient(135deg, #9d84ff, #d9a9f0 55%, #ffc2dc);
+  background-size: cover;
+  background-position: center;
+}
+
+.about-card {
+  position: relative;
+  width: min(1100px, 94%);
+  margin: -70px auto 0;        /* pulls the card up over the banner */
+  background: #fff;
+  border-radius: 40px 40px 0 0;
+  padding: 3rem 4rem 4rem;
+}
+
+.about-label {
+  font-style: italic;
+  font-size: 1.4rem;
+  color: #777;
+  margin-bottom: 2rem;
+}
+
+.about-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.about-row.top {
+  align-items: start;
+}
+
+.about-name {
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--purple-dark);
+  margin-bottom: 1.2rem;
+}
+
+.aka {
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+}
+
+.bio {
+  font-size: 0.95rem;
+  max-width: 420px;
+}
+
+.bio .hi {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  line-height: 1;
+  margin-right: 0.2rem;
+}
+
+.photo {
+  width: min(100%, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+.contact {
+  list-style: none;
+  width: min(100%, 380px);
+  margin: 0 auto;
+}
+
+.contact li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.4rem;
+}
+
+.contact svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--purple-dark);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.section-title::after {          /* short pink underline */
+  content: "";
+  display: block;
+  width: 48px;
+  height: 4px;
+  margin-top: 0.3rem;
+  border-radius: 2px;
+  background: var(--pink);
+}
+
+.section-title.gap {
+  margin-top: 2.5rem;
+}
+
+.skills-list {
+  margin-left: 1.2rem;
+}
+
+/* software list with skill bars */
+.apps {
+  list-style: none;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.apps li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-icon {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.app-info {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.bar {
+  height: 8px;
+  margin-top: 4px;
+  background: #e2e2e2;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  width: var(--level);
+  background: var(--purple);
+  border-radius: 4px;
+}
+
+@media (max-width: 800px) {
+  .about-card { padding: 2rem 1.5rem 3rem; }
+  .about-row { grid-template-columns: 1fr; }
+}
+
+.modal-box .art {
+  aspect-ratio: auto;
+  object-fit: contain;
+  max-height: 70vh;
+  background: #f5f5f5;
+}
+
+.card[data-category="Logo"] .art {
+  object-fit: contain;
+  background: #fff;
+}
+
+/* ---------- Masonry gallery (Works page) ---------- */
+.gallery {
+  display: block;
+  columns: 3 260px;          /* up to 3 columns, each at least 260px wide */
+  column-gap: 1rem;
+}
+
+.gallery .card {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+  break-inside: avoid;       /* keeps a card from splitting across columns */
+  background: none;
+  border-radius: 6px;
+}
+
+.gallery .art {
+  aspect-ratio: auto;        /* stop cropping: use the image's real shape */
+  height: auto;
+}
+
+.gallery div.art {           /* placeholder boxes still need a height */
+  aspect-ratio: 4 / 3;
+}
+
+/* title appears over the image on hover, like a clean photo wall */
+.gallery .card-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2rem 1rem 0.8rem;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.gallery .card:hover .card-info,
+.gallery .card:focus-visible .card-info {
+  opacity: 1;
+}
+
+.gallery .card-info span {
+  color: #ddd;
+}
+
+/* ---------- Heading style: LATEST WORKS look ---------- */
+.page .section-heading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 2.5rem;
+}
+
+.section-heading::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 2px;
+  margin-top: 0.6rem;
+  background: var(--purple-soft);
+}
+
+/* ---------- Pill filters (Works page) ---------- */
+.filters {
+  justify-content: center;
+}
+
+.filter {
+  padding: 0.35rem 1.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #111;
+  color: #fff;
+  border: 1px solid #111;
+}
+
+.filter.active {
+  background: #fff;
+  color: #111;
+}
+
+.filter:hover:not(.active) {
+  background: #333;
+}
+
+/* ---------- Mosaic (Home page) ---------- */
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;           /* height of one row */
+  gap: 4px;                        /* thin white lines between tiles */
+}
+
+.mosaic .card {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  background: #eee;
+  overflow: hidden;
+}
+
+.mosaic .card:hover {
+  transform: none;
+}
+
+.mosaic .art {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;               /* fill the cell, crop the extra */
+}
+
+.mosaic .card-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2rem 1rem 0.8rem;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.mosaic .card:hover .card-info {
+  opacity: 1;
+}
+
+.mosaic .card-info span {
+  color: #ddd;
+}
+
+/* tile layout: edit these numbers to rearrange */
+@media (min-width: 701px) {
+  .mosaic .card:nth-child(1) { grid-column: 1;     grid-row: 1; }
+  .mosaic .card:nth-child(2) { grid-column: 1;     grid-row: 2; }
+  .mosaic .card:nth-child(3) { grid-column: 2;     grid-row: 1 / span 2; }  /* tall */
+  .mosaic .card:nth-child(4) { grid-column: 3 / span 2; grid-row: 1; }      /* wide */
+  .mosaic .card:nth-child(5) { grid-column: 3 / span 2; grid-row: 2; }      /* wide */
+}
+
+@media (max-width: 700px) {
+  .mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 180px;
+  }
+}
+
+.gallery .card {
+  border-radius: 0;
+}
+
+.modal-box {
+  border-radius: 0;
+}
+
+.modal-box .art {
+  border-radius: 0;
+}
