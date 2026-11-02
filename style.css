@@ -83,8 +83,10 @@ body {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 2rem;
-  /* keeps content centered at 1100px wide while the grid fills the screen */
-  padding: 7rem max(2rem, calc((100% - 1100px) / 2)) 3rem;
+  /* Centers grid content smoothly across wide screens */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem 3rem;
   background: #fff;
 }
 
@@ -99,6 +101,14 @@ body {
   background-size: 44px 44px;
   -webkit-mask-image: linear-gradient(#000 40%, transparent);
   mask-image: linear-gradient(#000 40%, transparent);
+}
+
+.hero-photo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end; /* Aligns the image & background blocks to the right */
+  width: 100%;
 }
 
 .hero-text,
@@ -120,14 +130,20 @@ body {
   margin-bottom: 1rem;
 }
 
+.intro {
+  max-width: 42ch;
+  line-height: 1.6;
+  margin: 1rem 0 1.5rem;
+}
+
 /* ---------- Sliding roles ---------- */
 .roles {
-  height: 1.5em;            /* shows one role at a time */
+  height: 2.4rem;            /* shows one role at a time */
   overflow: hidden;
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--hero-purple);
-  margin-bottom: 2rem;
+  margin-bottom: 0.75;
 }
 
 .roles ul {
@@ -136,21 +152,44 @@ body {
 }
 
 .roles li {
-  height: 1.5em;
-  line-height: 1.5;
+  height: 2.4rem;
+  line-height: 2.4rem;      
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 /* each role holds, then slides up one step */
 @keyframes slide-roles {
-  0%, 20%  { transform: translateY(0); }
-  25%, 45% { transform: translateY(-20%); }
-  50%, 70% { transform: translateY(-40%); }
-  75%, 95% { transform: translateY(-60%); }
-  100%     { transform: translateY(-80%); }
+  0%, 40% {transform: translateY(0);}
+  50%, 90% {transform: translateY(-33.333%);}
+  100% {transform: translateY(-66.666%);}
 }
 
 @media (prefers-reduced-motion: reduce) {
   .roles ul { animation: none; }
+}
+
+.software-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: -30px 0 28px 0; /* Adjust top/bottom margins to match your layout rhythm */
+  flex-wrap: wrap;       /* Ensures graceful wrapping on smaller screens */
+}
+
+.software-logos img {
+  height: 50px;          /* Uniform height for visual balance */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.9;
+}
+
+.software-logos img:hover {
+  transform: translateY(-2px);
+  opacity: 1;
 }
 
 /* ---------- Buttons ---------- */
@@ -180,11 +219,12 @@ body {
 }
 
 /* ---------- certificates-section ---------- */
-.certificates-section{
+.certificates-section {
   background: #f9f9f9;
+  margin-top: 4rem;
 }
 
-/* 1. Grid Container */
+/* Grid Container */
 .certificates {
   display: grid;
   /* Automatically wraps cards into clean columns based on available space */
@@ -194,7 +234,7 @@ body {
   width: 100%;
 }
 
-/* 2. Individual Certificate Cards */
+/*Individual Certificate Cards */
 .certificates .card {
   display: flex;
   flex-direction: column;
@@ -214,7 +254,7 @@ body {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* 3. Certificate Images Alignment */
+/*Certificate Images Alignment */
 .certificates .art {
   width: 100%;
   height: 200px; /* Fixed height forces absolute uniform alignment */
@@ -222,7 +262,7 @@ body {
   border-bottom: 1px solid #e2e8f0;
 }
 
-/* 4. Text Info Area Inside Cards */
+/*Text Info Area Inside Cards */
 .card-info {
   padding: 1.25rem;
   display: flex;
@@ -285,6 +325,8 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 8rem 2rem 4rem;   /* top padding clears the fixed nav */
+  padding-top: 3rem;
+  max-width: calc(1100px + 4rem);
 }
 
 .page h1 {
@@ -447,14 +489,6 @@ footer {
   --pink: #e8508f;
 }
 
-body {
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
-}
-
-body.about-page {
-  background: linear-gradient(180deg, #d8ccff 0%, #eadcff 45%, #fcdceb 100%);
-}
-
 /* halftone dots fading in from the left edge */
 body.about-page::before {
   content: "";
@@ -462,15 +496,146 @@ body.about-page::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: radial-gradient(rgba(124, 77, 255, 0.35) 1.2px, transparent 1.6px);
   background-size: 9px 9px;
   -webkit-mask-image: linear-gradient(90deg, #000, transparent 25%);
   mask-image: linear-gradient(90deg, #000, transparent 25%);
 }
 
+/* Vertical Connected Timeline */
+.timeline-vertical {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  margin-top: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+/* Continuous connecting line running down behind the squares */
+.timeline-vertical::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 24px;
+  left: 10px; /* Aligns vertically with the center of the square markers */
+  width: 2px;
+  background: var(--purple-soft);
+  z-index: 1;
+}
+
+.timeline-node {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  z-index: 2;
+}
+
+/* Column holding the square icon and year */
+.marker-column {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 110px;
+}
+
+/* Solid Square Marker */
+.square-marker {
+  width: 12px;
+  height: 12px;
+  background-color: var(--pink);
+  flex: none;
+  border-radius: 2px; /* Slight rounding for a clean modern square */
+}
+
+.timeline-node .year {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+}
+
+.timeline-detail h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.2rem;
+}
+
+.role-location {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.role-location em {
+  font-weight: 400;
+  color: #777;
+}
+
+/* Software Icon Grid Layout */
+.software-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 280px;
+  margin-bottom: 2rem;
+}
+
+.software-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Base icon styling with rounded squircle corners matching reference */
+.icon-box {
+  background: #fff;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.icon-box:hover {
+  transform: translateY(-2px);
+}
+
+.icon-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Large top 2 icons */
+.icon-box.large {
+  width: 130px;
+  height: 130px;
+  border-radius: 24px;
+}
+
+/* Small bottom 3 icons */
+.icon-box.small {
+  width: 82px;
+  height: 82px;
+  border-radius: 18px;
+}
+
+.software-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.skill-item {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
 .about-banner {
   height: 320px;               /* change this to make the banner taller or shorter */
-  background: linear-gradient(135deg, #9d84ff, #d9a9f0 55%, #ffc2dc);
   background-size: cover;
   background-position: center;
 }

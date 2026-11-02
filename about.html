@@ -5,48 +5,166 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | Gwen</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-<nav class="menubar">
-  <a class="logo" href="index.html">
-    <img src="Images/gwnLogo.svg" alt="Gwen logo">
-  </a>
-  <ul class="menu-links">
-    <li><a href="index.html" >Home</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-    <li><a href="works.html" >Works</a></li>
-  </ul>
-</nav>
+<body class="about-page">
 
-  <main class="page">
-    <h1>About me</h1>
+  <nav class="menubar">
+    <a class="logo" href="index.html">
+      <img src="Images/gwnLogo.svg" alt="Gwen logo">
+    </a>
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="works.html">Works</a></li>
+    </ul>
+  </nav>
 
-    <div class="about-top">
-      <div class="art portrait" style="background:#d8c3a5"></div>
-      <div>
-        <h2>Who I am</h2>
-        <p>[Your full story here.]</p>
+  <div class="about-banner"></div>
+
+  <main class="about-card">
+    <!-- Top Row: Hero Text & Circular Portrait -->
+    <div class="about-row top">
+      <div class="hero-text">
+        <h1 class="about-name">About Me</h1>
+        <p class="aka">Gwen D. Aninao</p>
+        <p class="bio">
+          <span class="hi">Hi!</span> I'm an illustrator with a love for storytelling and playful ideas. 
+          My work moves between digital drawing, children's illustration, character design, comics, and magazine layout. 
+          I'm always eager to learn, grow, and push my creativity further—because every project is a new chance to bring ideas to life.
+        </p>
+      </div>
+
+      <div class="hero-right">
+        <!-- Circle Photo -->
+        <img src="Images/portrait.jpg" alt="Gwen portrait" class="photo">
+        
+        <!-- Contact details right under portrait -->
+        <ul class="contact">
+          <li>
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span>gwen.aninao@lsu.edu.ph</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span>09203920697</span>
+          </li>
+        </ul>
       </div>
     </div>
 
-    <section class="block">
-      <h2>Education</h2>
-      <p>[School, course, year.]</p>
+    <!-- Bottom Row: Timeline vs. Software & Education -->
+    <section class="block timeline-section">
+      <h2 class="section-title">EXPERIENCE</h2>
+      <div class="timeline-vertical">
+        
+        <!-- 2026 -->
+        <div class="timeline-node">
+          <div class="marker-column">
+            <span class="square-marker"></span>
+            <span class="year">2026</span>
+          </div>
+          <div class="timeline-detail">
+            <h3>Associate Editor for Operations</h3>
+            <p class="role-location">LSU TINGOG Campus Press — Ozamiz City | <em>Aug 2026 – Present</em></p>
+          </div>
+        </div>
+
+        <div class="timeline-node">
+          <div class="marker-column">
+            <span class="square-marker"></span>
+            <span class="year">2026</span>
+          </div>
+          <div class="timeline-detail">
+            <h3>External Relations & Delegations Committee Head</h3>
+            <p class="role-location">26th TINGOG Arts Journalism Awards | <em>Jul 2026 – Oct 2026</em></p>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="timeline-node">
+          <div class="marker-column">
+            <span class="square-marker"></span>
+            <span class="year">2024</span>
+          </div>
+          <div class="timeline-detail">
+            <h3>Art Editor</h3>
+            <p class="role-location">LSU TINGOG Campus Press — Ozamiz City | <em>Jan 2024 – 2026</em></p>
+          </div>
+        </div>
+
+        <div class="timeline-node">
+          <div class="marker-column">
+            <span class="square-marker"></span>
+            <span class="year">2024</span>
+          </div>
+          <div class="timeline-detail">
+            <h3>Editorial Cartoonist & Illustrator</h3>
+            <p class="role-location">LSU TINGOG Campus Press — Ozamiz City | <em>Aug 2024 – Present</em></p>
+          </div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="timeline-node">
+          <div class="marker-column">
+            <span class="square-marker"></span>
+            <span class="year">2023</span>
+          </div>
+          <div class="timeline-detail">
+            <h3>Sangguniang Kabataan Council Secretary</h3>
+            <p class="role-location">Labo, Ozamiz City | <em>2023 – Present</em></p>
+          </div>
+        </div>
+
+        <!-- 2016 -->
+        <div class="timeline-node">
+          <div class="marker-column">
+            <span class="square-marker"></span>
+            <span class="year">2016</span>
+          </div>
+          <div class="timeline-detail">
+            <h3>Parish Youth Secretary</h3>
+            <p class="role-location">Eastern Visayas Independent Catholic Church — Labo, Ozamiz City | <em>2016 – 2022</em></p>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-    <section class="block">
-      <h2>What I do</h2>
-      <ul>
-        <li>Illustration</li>
-        <li>Graphic design</li>
-        <li>Logo and brand design</li>
-      </ul>
-    </section>
+        <h2 class="section-title gap">EDUCATION</h2>
+        <p class="education-text">Currently studying Bachelor of Information Technology at La Salle University- Ozamiz.</p>
+      </div>
 
-    <section class="block" id="contact">
-      <h2>Contact</h2>
-      <p>Email: youremail@example.com</p>
-    </section>
+      <!-- Right Column: Software Skill Bars -->
+      <div class="right-col">
+        <section class="block software-section">
+          <h2 class="section-title">SOFTWARES</h2>
+
+          <!-- Software Icons Grid Layout (2 Large Top, 3 Small Bottom) -->
+          <div class="software-grid">
+            <div class="software-row row-large">
+              <div class="icon-box large">
+                <img src="Images/ibisPaintLogo.svg" alt="ibis Paint X">
+              </div>
+              <div class="icon-box large">
+                <img src="Images/cspLogo.svg" alt="Clip Studio Paint">
+              </div>
+            </div>
+            <div class="software-row row-small">
+              <div class="icon-box small">
+                <img src="Images/mediBangLogo.svg" alt="MediBang Paint">
+              </div>
+              <div class="icon-box small">
+                <img src="Images/canvaLogo.svg" alt="Canva">
+              </div>
+              <div class="icon-box small">
+                <img src="Images/figmaLogo.svg" alt="Figma">
+              </div>
+            </div>
+          </div>
+        </section>  
+      </div>
+    </div>
   </main>
 
   <footer>&copy; 2026 Gwen</footer>
