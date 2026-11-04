@@ -215,3 +215,5 @@ document.addEventListener('keydown', (event) => {
   if (!lightbox.hidden) closeLightbox();
   else collapseWork({ scroll: true });
 });
+
+

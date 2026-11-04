@@ -1449,3 +1449,36 @@ body.about-page::before {
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   scroll-margin-top: 6rem; /* Clean breathing room below your fixed nav */
 }
+
+/* ---------- Skeleton loader for images ---------- */
+.card .art:not(.loaded) {
+  background: linear-gradient(90deg, #ececec 25%, #f7f7f7 50%, #ececec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  color: transparent;            /* hides alt text while loading */
+}
+
+/* Works gallery: images have no height until they load,
+   so reserve a box or the skeleton has nothing to show in */
+
+/* fade the real image in */
+.card .art.loaded {
+  animation: art-fade 0.4s ease;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+@keyframes art-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card .art:not(.loaded),
+  .card .art.loaded {
+    animation: none;
+  }
+}
