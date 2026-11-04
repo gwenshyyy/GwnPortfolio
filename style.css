@@ -707,6 +707,20 @@ body.about-page::before {
   max-width: none;
 }
 
+.bio p {
+  text-align: justify;       /* Makes the edges straight on left and right */
+  text-justify: inter-word;  /* Keeps spacing between words clean */
+  margin-bottom: 24px;       /* Adds a clean space AFTER each paragraph */
+  text-indent: 40px;         /* Indents the first line of every paragraph */
+  line-height: 1.6;          /* Adds comfortable breathing room between lines */
+}
+
+/* Optional: If you don't want the very first "Hi!" line to be indented */
+.bio p:first-of-type {
+  text-indent: 0;
+}
+
+
 .bio .hi {
   font-family: 'Permanent Marker', cursive;
   font-size: 2rem;
@@ -719,7 +733,7 @@ body.about-page::before {
   aspect-ratio: 1;
   border-radius: 5%;
   object-fit: cover;
-  margin: 0 0 1.5rem; 
+  margin: 3.5rem 0 1.5rem; 
   display: block;
   outline : 3px solid var(--purple-soft);
 }
