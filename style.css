@@ -9,9 +9,17 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
   line-height: 1.6;
   color: #1a1a1a;
+}
+
+/* buttons and form fields use the page font instead of the browser default */
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 [hidden] {
@@ -74,6 +82,12 @@ body {
 :root {
   --hero-purple: #6159c9;
   --hero-lavender: #a7a2e8;
+
+  /* faint grid used on the home hero and the about page.
+     Change it here and both pages update. */
+  --grid-lines:
+    linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
 }
 
 .hero {
@@ -83,10 +97,10 @@ body {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 2rem;
-  /* Centers grid content smoothly across wide screens */
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 6rem 2rem 3rem;
+  /* The hero is full width so the grid background reaches both screen edges.
+     The side padding keeps the content centered at 1100px, the same width
+     as the Featured Works section below it. */
+  padding: 6rem max(2rem, calc((100% - 1100px) / 2)) 3rem;
   background: #fff;
 }
 
@@ -95,9 +109,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-image: var(--grid-lines);
   background-size: 44px 44px;
   -webkit-mask-image: linear-gradient(#000 40%, transparent);
   mask-image: linear-gradient(#000 40%, transparent);
@@ -322,11 +334,16 @@ body {
 
 /* ---------- Inner pages ---------- */
 .page {
-  max-width: 1000px;
+  max-width: calc(1100px + 4rem);
   margin: 0 auto;
   padding: 8rem 2rem 4rem;   /* top padding clears the fixed nav */
-  padding-top: 3rem;
+}
+
+/* Home page only: Featured Works sits right under the hero,
+   at the same 1100px content width as the hero text */
+.hero + .page {
   max-width: calc(1100px + 4rem);
+  padding-top: 3rem;
 }
 
 .page h1 {
@@ -489,16 +506,22 @@ footer {
   --pink: #e8508f;
 }
 
-/* halftone dots fading in from the left edge */
+/* Same faint grid as the home hero. It sits at the top of the page,
+   spans the full screen width, fades out downward, and scrolls away
+   with the page. It is behind everything, so the layout is untouched. */
 body.about-page::before {
   content: "";
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 95vh;
   z-index: -1;
   pointer-events: none;
-  background-size: 9px 9px;
-  -webkit-mask-image: linear-gradient(90deg, #000, transparent 25%);
-  mask-image: linear-gradient(90deg, #000, transparent 25%);
+  background-image: var(--grid-lines);
+  background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(#000 40%, transparent);
+  mask-image: linear-gradient(#000 40%, transparent);
 }
 
 /* Vertical Connected Timeline */
@@ -508,7 +531,7 @@ body.about-page::before {
   flex-direction: column;
   gap: 1.8rem;
   margin-top: 1.5rem;
-  padding-left: 0.5rem;
+  padding-left: 0rem;
 }
 
 /* Continuous connecting line running down behind the squares */
@@ -517,7 +540,7 @@ body.about-page::before {
   position: absolute;
   top: 6px;
   bottom: 24px;
-  left: 10px; /* Aligns vertically with the center of the square markers */
+  left: 5px; /* Aligns vertically with the center of the square markers */
   width: 2px;
   background: var(--purple-soft);
   z-index: 1;
@@ -634,16 +657,10 @@ body.about-page::before {
   color: #333;
 }
 
-.about-banner {
-  height: 320px;               /* change this to make the banner taller or shorter */
-  background-size: cover;
-  background-position: center;
-}
-
 .about-card {
   position: relative;
   width: min(1100px, 94%);
-  margin: -70px auto 0;        /* pulls the card up over the banner */
+  margin: 100px auto 0;        /* pulls the card up over the banner */
   background: #fff;
   border-radius: 40px 40px 0 0;
   padding: 3rem 4rem 4rem;
@@ -661,7 +678,7 @@ body.about-page::before {
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
 }
 
 .about-row.top {
@@ -684,7 +701,7 @@ body.about-page::before {
 
 .bio {
   font-size: 0.95rem;
-  max-width: 420px;
+  max-width: none;
 }
 
 .bio .hi {
@@ -695,12 +712,13 @@ body.about-page::before {
 }
 
 .photo {
-  width: min(100%, 380px);
+  width: min(100%, 300px);
   aspect-ratio: 1;
-  border-radius: 50%;
+  border-radius: 5%;
   object-fit: cover;
   margin: 0 auto 1.5rem;
   display: block;
+  outline : 3px solid var(--purple-soft);
 }
 
 .contact {
@@ -726,20 +744,21 @@ body.about-page::before {
   stroke-linejoin: round;
 }
 
-.section-title {
-  font-size: 2.2rem;
-  font-weight: 500;
+.section-title {         /* Matches featured works label size */           /* Bold text weight */
+  text-transform: uppercase;     /* Forces capital letters */
+  letter-spacing: 0.15em;        /* Adds space between letters */
+  color: #111;                   /* Primary dark text color */
   margin-bottom: 1rem;
 }
 
-.section-title::after {          /* short pink underline */
+.section-title::after {          /* short purple underlines*/
   content: "";
   display: block;
-  width: 48px;
-  height: 4px;
-  margin-top: 0.3rem;
+  width: 44px;                   /* Short line length */
+  height: 3px;                   /* Line thickness */
+  margin-top: 0.5rem;            /* Space between text and line */
   border-radius: 2px;
-  background: var(--pink);
+  background: var(--purple-soft); /* Light purple color matching home page */
 }
 
 .section-title.gap {
@@ -816,14 +835,14 @@ body.about-page::before {
 .gallery {
   display: block;
   columns: 3 260px;          /* up to 3 columns, each at least 260px wide */
-  column-gap: 1rem;
+  column-gap: 3px;
 }
 
 .gallery .card {
   display: block;
   position: relative;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 4px;
   break-inside: avoid;       /* keeps a card from splitting across columns */
   background: none;
   border-radius: 6px;
@@ -977,4 +996,95 @@ body.about-page::before {
 
 .modal-box .art {
   border-radius: 0;
+}
+
+/* =====================================================
+   About page: one bond paper, pinned, with sheets behind it
+   ===================================================== */
+.board {
+  position: relative;
+  isolation: isolate;               /* keeps the back sheets behind the front one */
+  width: min(1100px, 94%);
+  margin: 110px auto 5rem;
+}
+
+/* the two extra sheets peeking out from behind */
+.board::before,
+.board::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.board::before { transform: rotate(2.2deg) translate(6px, 4px); }
+.board::after  { transform: rotate(-1.6deg) translate(-4px, 6px); }
+
+/* the front sheet */
+.paper {
+  position: relative;
+  background: #fff;
+  padding: 3.5rem 2.5rem 3rem 4.5rem;  
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 14px 30px rgba(0, 0, 0, 0.16);
+  transform: none;
+}
+
+/* Experience on the left, Education + Software on the right */
+.paper-columns {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.paper-side {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.paper-software { order: -1; }
+
+.paper-software .software-grid {
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .paper { padding: 2.5rem 1.5rem 2rem; }
+  .paper-columns { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 801px) {
+  .about-row,
+  .paper-columns {
+    grid-template-columns: 1fr 340px;   /* right side is fixed, Experience takes the rest */
+  }
+}
+
+.role-location em {
+  display: block;
+  font-weight: 400;
+  color: #777;
+}
+
+.education-text {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.resume-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.resume-cta .btn {
+  display: inline-block;
 }
