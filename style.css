@@ -716,7 +716,7 @@ body.about-page::before {
   aspect-ratio: 1;
   border-radius: 5%;
   object-fit: cover;
-  margin: 0 auto 1.5rem;
+  margin: 0 0 1.5rem; 
   display: block;
   outline : 3px solid var(--purple-soft);
 }
@@ -1080,11 +1080,20 @@ body.about-page::before {
   line-height: 1.5;
 }
 
-.resume-cta {
-  margin-top: 3rem;
+.resume-float {
   text-align: center;
+  padding-bottom: 4rem;
 }
 
-.resume-cta .btn {
+.resume-float .btn {
   display: inline-block;
+  padding: 1rem 2.4rem;
+  box-shadow: 0 10px 24px rgba(97, 89, 201, 0.35);   /* purple glow makes it look lifted */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resume-float .btn:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(97, 89, 201, 0.45);
 }
