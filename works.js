@@ -48,6 +48,35 @@ filterButtons.forEach((button) => {
   });
 });
 
+const wantedFilter = new URLSearchParams(location.search).get('filter');
+if (wantedFilter) {
+  const match = document.querySelector(`.filter[data-filter="${wantedFilter}"]`);
+  if (match) match.click();
+}
+
+// Puts the text in, turning linkText into a clickable link
+function fillDescription(el, text, link, linkText) {
+  el.textContent = '';
+  const start = link && linkText ? text.indexOf(linkText) : -1;
+
+  // No link set, or the words weren't found: plain text
+  if (start === -1) {
+    el.textContent = text;
+    return;
+  }
+
+  const a = document.createElement('a');
+  a.href = link;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.textContent = linkText;
+
+  el.append(
+    text.slice(0, start),
+    a,
+    text.slice(start + linkText.length)
+  );
+}
 
 /* ---------- 2. Expand a work in its own place ---------- */
 
@@ -87,8 +116,13 @@ function expandWork(card) {
   panel.querySelector('.work-open-title').textContent = card.querySelector('.card-info h3').textContent.trim();
 
   const description = panel.querySelector('.work-open-desc');
-  description.textContent = hasDescription ? text : '';
-  description.hidden = !hasDescription;
+  fillDescription(
+    description,
+    hasDescription ? text : '',
+    card.dataset.link,
+    card.dataset.linkText
+  );
+description.hidden = !hasDescription;
 
   // Bind the collapse/hide event directly to clicking the expanded image
   image.addEventListener('click', () => collapseWork({ scroll: true }));
@@ -215,5 +249,6 @@ document.addEventListener('keydown', (event) => {
   if (!lightbox.hidden) closeLightbox();
   else collapseWork({ scroll: true });
 });
+
 
 
