@@ -65,3 +65,49 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') show(current - 1);
   if (e.key === 'ArrowRight') show(current + 1);
 });
+
+// Arrow buttons for the chapter rows
+(function () {
+  document.querySelectorAll('.chapter-row').forEach(row => {
+    // wrap the row and add two buttons
+    const wrap = document.createElement('div');
+    wrap.className = 'row-wrap';
+    row.parentNode.insertBefore(wrap, row);
+    wrap.appendChild(row);
+
+    const prev = document.createElement('button');
+    prev.className = 'row-arrow row-prev';
+    prev.setAttribute('aria-label', 'Scroll left');
+    prev.innerHTML = '&#8249;';
+
+    const next = document.createElement('button');
+    next.className = 'row-arrow row-next';
+    next.setAttribute('aria-label', 'Scroll right');
+    next.innerHTML = '&#8250;';
+
+    wrap.append(prev, next);
+
+    // scroll about one screenful of the row per click
+    prev.addEventListener('click', () => row.scrollBy({ left: -row.clientWidth * 0.8 }));
+    next.addEventListener('click', () => row.scrollBy({ left: row.clientWidth * 0.8 }));
+
+    // show each arrow only when there is more to scroll that way,
+    // and keep them level with the middle of the images
+    function update() {
+      const max = row.scrollWidth - row.clientWidth;
+      prev.hidden = row.scrollLeft < 2;
+      next.hidden = row.scrollLeft > max - 2;
+
+      const img = row.querySelector('img');
+      if (img && img.offsetHeight) {
+        const top = img.offsetTop + img.offsetHeight / 2;
+        prev.style.top = next.style.top = top + 'px';
+      }
+    }
+
+    row.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    row.querySelectorAll('img').forEach(img => img.addEventListener('load', update));
+    update();
+  });
+})();
