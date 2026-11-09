@@ -1516,7 +1516,8 @@ body.about-page::before {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center 25%; 
 }
 
 /* skeleton while the image loads */
