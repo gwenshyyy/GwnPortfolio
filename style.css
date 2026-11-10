@@ -2311,4 +2311,33 @@ body.about-page::before {
 
   .hero .buttons {
     grid-column: 1 / -1;
-    grid-row: 7;  } 
+    grid-row: 7;  }   }
+
+  /* two images side by side at the top of a project card */
+.project .commission-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;                       /* thin line between the two images */
+}
+
+.project .commission-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;             /* shows each whole image, nothing cropped */
+  object-fit: cover;
+}
+
+/* character images fill their box edge to edge */
+.project .character-row .chapter img {
+  aspect-ratio: 1 / 1;      /* your drawings are close to square, so almost nothing is cut off */
+  object-fit: cover;        /* fills the whole box, no white margins */
+  padding: 0;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.zoomable,
+.character-row .chapter img {
+  cursor: zoom-in;
+}

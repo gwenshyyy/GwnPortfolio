@@ -39,8 +39,10 @@ document.querySelectorAll('.chapter').forEach(ch => {
     group = row.map(c => ({
       src: c.href,
       alt: c.querySelector('img').alt,
-      caption: c.querySelector('.chapter-name').textContent + ': ' +
-               c.querySelector('.chapter-piece').textContent
+      caption: [
+      c.querySelector('.chapter-name'),
+      c.querySelector('.chapter-piece')
+].map(el => el ? el.textContent : '').filter(Boolean).join(': ')
     }));
     show(row.indexOf(ch));
   });
